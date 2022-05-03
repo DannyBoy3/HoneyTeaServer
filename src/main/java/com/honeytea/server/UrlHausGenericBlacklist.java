@@ -22,7 +22,6 @@ public class UrlHausGenericBlacklist implements LinkProvider {
 	private final HttpClient client = HttpClient.newBuilder()
 			.connectTimeout(Duration.ofSeconds(3))
 			.sslContext(Util.insecureContext())
-			.proxy(ProxySelector.of(new InetSocketAddress("127.0.0.1", 3129)))
 			.build();
 
 	private final Set<String> cache = new HashSet<>();

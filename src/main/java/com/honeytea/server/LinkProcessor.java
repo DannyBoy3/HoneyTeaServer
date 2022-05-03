@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Stack;
 
+import static com.honeytea.server.Util.getHost;
+
 public class LinkProcessor {
 
 	//todo add more links
@@ -57,7 +59,6 @@ public class LinkProcessor {
 						registry.save(Arrays.asList(redirectLink, endHost));
 					}
 				}
-
 			}
 			catch (Exception e) {
 				//
@@ -79,11 +80,7 @@ public class LinkProcessor {
 		Collection<String> results = new ArrayList<>();
 		for (String link : links) {
 			try {
-
-				URI uri = new URI(link);
-				if (uri.getScheme() == null) {
-					uri = withSchema(uri, "http");
-				}
+				URI uri = Util.toUri(link);
 
 				if (registry.contains(uri.getHost())) {
 					//skip already saved
@@ -105,18 +102,6 @@ public class LinkProcessor {
 
 	private void scheduleAnalysis(URI uri) {
 		jobQueue.push(uri);
-	}
-
-	private String getHost(URI uri) {
-		String host = uri.getHost();
-		if (host.startsWith("www.")) {
-			return host.split("\\.")[1];
-		}
-		return host;
-	}
-
-	private URI withSchema(URI uri, String schema) throws URISyntaxException {
-		return new URI(schema + "://" + uri.toString());
 	}
 
 }
