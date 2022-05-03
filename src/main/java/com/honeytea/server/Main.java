@@ -7,7 +7,7 @@ public class Main {
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		}
-		int refreshPeriod =  8 * 60 * 60 * 1000;
+		int refreshPeriod = 1000 * 60 * 60;
 		if (args.length > 1) {
 			refreshPeriod = Integer.parseInt(args[1]);
 		}
